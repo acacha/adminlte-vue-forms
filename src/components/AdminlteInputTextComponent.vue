@@ -21,21 +21,24 @@
 
 <script>
 
- import formWidget from './FormWidget'
+ import FormComponent from './FormComponent'
 
-  export default {
-    name: 'AdminLTEInputText',
-    mixins: [ formWidget ],
-    methods: {
-      update (value) {
-        this.updateFormField(this.trim(value))
-      },
-      trim (value) {
-        if (typeof value === 'string' || value instanceof String) {
-          return value.trim()
-        }
-        return value
-      }
-    }
-  }
+ export default function AdminLTEInputText(formName) {
+   return {
+     name: 'AdminLTEInputText',
+       mixins: [ FormComponent(formName) ],
+       methods: {
+       update (value) {
+         this.updateFormField(this.trim(value))
+       },
+       trim (value) {
+         if (typeof value === 'string' || value instanceof String) {
+           return value.trim()
+         }
+         return value
+       }
+     }
+   }
+ }
+
 </script>
