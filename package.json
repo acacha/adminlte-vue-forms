@@ -1,8 +1,8 @@
 {
-  "name": "acacha-adminlte-forms",
+  "name": "acacha-adminlte-vue-forms",
   "version": "0.1.0",
   "description": "Acacha Forms vue components for AdminLTE template",
-  "main": "dist/acacha-adminlte-vue-forms.min.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ext .js src/",

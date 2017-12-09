@@ -2,7 +2,7 @@ import Components from './components/index'
 
 let AdminlteVueForms = {
   install (Vue) {
-    // install our components
+    // install components
     Components(Vue)
   }
 }
@@ -14,6 +14,6 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 export default AdminlteVueForms
 
-import Box from './components/AdminlteInputTextComponent.vue'
+import AdminlteInputTextComponent from './components/AdminlteInputTextComponent.vue'
 
-export { Box }
+export { AdminlteInputTextComponent }
