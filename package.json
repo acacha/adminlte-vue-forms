@@ -2,7 +2,7 @@
   "name": "acacha-adminlte-vue-forms",
   "version": "0.1.0",
   "description": "Acacha Forms vue components for AdminLTE template",
-  "main": "dist/acacha-adminlte-vue-forms.min.js",
+  "main": "dist/acacha-adminlte-vue-forms.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ext .js,.vue src/",
@@ -62,7 +62,10 @@
     "webpack-merge": "^4.1.1"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "change-case": "^3.0.1",
+    "inputmask": "^3.3.11",
+    "moment": "^2.19.4",
     "vue": "^2.5.10",
     "vue-multiselect": "^2.0.8"
   }

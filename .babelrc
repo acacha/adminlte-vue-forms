@@ -1,4 +1,7 @@
 {
-  "presets": ["stage-2"],
+  "presets": [
+    ["env"],
+    "stage-2"
+  ],
   "plugins": ["babel-plugin-add-module-exports"]
 }

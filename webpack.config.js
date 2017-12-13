@@ -21,7 +21,7 @@ function getPlugins () {
 
   plugins.push(new webpack.DefinePlugin({
     'process.env': {
-      'NODE_ENV': process.env.NODE_ENV
+      'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     }
   }))
 
@@ -45,6 +45,36 @@ const shared = merge([
         commonjs2: 'axios',
         amd: 'axios',
         root: 'axios'
+      },
+      'moment': {
+        commonjs: 'moment',
+        commonjs2: 'moment',
+        amd: 'moment',
+        root: 'moment'
+      },
+      'change-case': {
+        commonjs: 'change-case',
+        commonjs2: 'change-case',
+        amd: 'change-case',
+        root: 'change-case'
+      },
+      'inputmask': {
+        commonjs: 'inputmask',
+        commonjs2: 'inputmask',
+        amd: 'inputmask',
+        root: 'inputmask'
+      },
+      'vue-multiselect': {
+        commonjs: 'vue-multiselect',
+        commonjs2: 'vue-multiselect',
+        amd: 'vue-multiselect',
+        root: 'vue-multiselect'
+      },
+      'vue': {
+        cmmonjs: 'vue',
+        commonjs2: 've',
+        amd: 'vue',
+        root: 'vue'
       }
     },
     module: {
