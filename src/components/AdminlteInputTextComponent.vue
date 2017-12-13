@@ -21,7 +21,7 @@
 
 <script>
 
- import FormComponent from './FormComponent'
+ import FormComponent from './mixins/FormComponent'
 
  export default {
    name: 'AdminLTEInputText',

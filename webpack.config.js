@@ -34,6 +34,14 @@ module.exports = {
     }),
     new webpack.BannerPlugin({banner: banner, raw: true})
   ],
+  externals: {
+    'axios': {
+      commonjs: 'axios',
+      commonjs2: 'axios',
+      amd: 'axios',
+      root: 'axios'
+    }
+  },
   module: {
     rules: [{
       enforce: 'pre',

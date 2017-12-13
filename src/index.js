@@ -1,4 +1,8 @@
 import Components from './components/index'
+import AdminlteInputTextComponent from './components/AdminlteInputTextComponent.vue'
+import AdminlteInputDateMaskComponent from './components/AdminlteInputDateMaskComponent.vue'
+import AdminlteInputLocationComponent from './components/AdminlteInputLocationComponent.vue'
+import FormComponent from './components/mixins/FormComponent'
 
 let AdminlteVueForms = {
   install (Vue) {
@@ -14,6 +18,9 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 export default AdminlteVueForms
 
-import AdminlteInputTextComponent from './components/AdminlteInputTextComponent.vue'
-
-export { AdminlteInputTextComponent }
+export {
+  AdminlteInputTextComponent,
+  AdminlteInputDateMaskComponent,
+  AdminlteInputLocationComponent,
+  FormComponent
+}
