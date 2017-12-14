@@ -1,7 +1,7 @@
 <template>
-    <div class="form-group has-feedback" :class="{ 'has-error': internalForm.errors.has(name) }">
+    <div class="form-group has-feedback" :class="{ 'has-error': hasError() }">
         <transition name="fade">
-            <label key="error" class="help-block" v-if="internalForm.errors.has(name)" v-text="internalForm.errors.get(name)"></label>
+            <label key="error" class="help-block" v-if="hasError()" v-text="error()"></label>
             <slot name="label" v-else>
                 <label key="regular" :for="id">{{placeholder}}</label>
             </slot>
@@ -26,12 +26,11 @@
     </div>
 </template>
 
-<style src="./fade.css" />
+<style src="./fade.css" ></style>
 
-<style src="vue-multiselect/dist/vue-multiselect.min.css" />
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 
 <script>
-
   import FormComponent from './mixins/FormComponent'
   import Multiselect from 'vue-multiselect'
   import axios from 'axios'
@@ -43,50 +42,54 @@
     data () {
       return {
         locations: [],
-        loading: false,
+        loading: false
       }
     },
     props: {
       name: {
         type: String,
-        default: "location"
+        default: 'location'
       },
       placeholder: {
         type: String,
-        default: "Select location"
+        default: 'Select location'
       }
     },
     computed: {
-      location() {
+      location () {
         return this.locationObject()
       }
     },
     methods: {
-      updateLocation(location) {
-        let location_id = location ? location.id : ''
-        this.updateFormField(location_id)
+      updateLocation (location) {
+        let locationId = location ? location.id : ''
+        this.updateFormField(locationId)
+        locationId && this.clearError()
       },
-      customLabel({ name }) {
+      clearError () {
+        this.$store.dispatch('acacha-forms/clearErrorAction', this.name)
+      },
+      customLabel ({ name }) {
         return `${name}`
       },
-      fetchLocations() {
+      fetchLocations () {
         const url = '/api/v1/location'
         this.loading = true
-        axios.get(url).then( (response) => {
+        axios.get(url).then((response) => {
           this.locations = response.data
-        }).catch( (error) => {
+        }).catch((error) => {
           console.log(error)
-        }).then( () => {
+        }).then(() => {
           this.loading = false
         })
       },
-      locationObject(){
+      locationObject () {
         return this.locations.find((location) => {
           return location.id === this.internalForm[this.name]
         })
       }
     },
-    mounted() {
+    mounted () {
       this.fetchLocations()
     }
   }

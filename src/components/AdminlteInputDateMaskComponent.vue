@@ -1,7 +1,7 @@
 <template>
-    <div class="form-group has-feedback" :class="{ 'has-error': internalForm.errors.has(name) }">
+    <div class="form-group has-feedback" :class="{ 'has-error': hasError() }">
         <transition name="fade">
-            <label key="error" class="help-block" v-if="internalForm.errors.has(name)" v-text="internalForm.errors.get(name)"></label>
+            <label key="error" class="help-block" v-if="hasError()" v-text="error()"></label>
             <slot name="label" v-else>
                 <label key="regular" :for="id">{{placeholder}}</label>
             </slot>
@@ -27,15 +27,23 @@
     </div>
 </template>
 
-<style src="./fade.css" />
+<style src="./fade.css"></style>
+
+<style>
+    /*Sets z-index to auto to avoid input group appearing over multiselect*/
+  .input-group .form-control {
+    position: relative;
+    z-index: auto;
+    float: left;
+    width: 100%;
+    margin-bottom: 0;
+  }
+</style>
 
 <script>
-
   import FormComponent from './mixins/FormComponent'
-
-  import Inputmask from "inputmask/dist/inputmask/inputmask.date.extensions"
-
-  import { toLaravelDate, fromLaravelDate } from "./LaravelDates"
+  import Inputmask from 'inputmask/dist/inputmask/inputmask.date.extensions'
+  import { toLaravelDate, fromLaravelDate } from './LaravelDates'
 
   export default {
     name: 'AdminLTEInputDateMask',
@@ -48,32 +56,32 @@
     props: {
       name: {
         type: String,
-        default: "date"
+        default: 'date'
       }
     },
     watch: {
-      date: function(newVal) {
+      date (newVal) {
         this.internalDate = newVal
       }
     },
     computed: {
       localeDate: {
-        get: function () {
+        get () {
           return fromLaravelDate(this.internalForm[this.name])
         },
-        set: function (newValue) {
+        set (newValue) {
           this.newDate = toLaravelDate(newValue)
         }
-      },
+      }
     },
     methods: {
-      updateDate(date) {
+      updateDate (date) {
         date = date ? toLaravelDate(date) : ''
         this.updateFormField(date)
       }
     },
-    mounted() {
-      Inputmask().mask(this.$refs.inputDate);
+    mounted () {
+      Inputmask().mask(this.$refs.inputDate)
     }
   }
 </script>

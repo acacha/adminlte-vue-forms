@@ -1,7 +1,7 @@
 <template>
-    <div class="form-group has-feedback" :class="{ 'has-error': internalForm.errors.has(name) }">
+    <div class="form-group has-feedback" :class="{ 'has-error': hasError() }">
         <transition name="fade">
-            <label key="error" class="help-block" v-if="internalForm.errors.has(name)" v-text="internalForm.errors.get(name)"></label>
+            <label key="error" class="help-block" v-if="hasError()" v-text="error()"></label>
             <slot name="label" v-else>
                 <label key="regular" :for="id">{{placeholder}}</label>
             </slot>
@@ -17,10 +17,9 @@
     </div>
 </template>
 
-<style src="./fade.css" />
+<style src="./fade.css" ></style>
 
 <script>
-
  import FormComponent from './mixins/FormComponent'
 
  export default {
@@ -34,9 +33,8 @@
        if (typeof value === 'string' || value instanceof String) {
          return value.trim()
        }
-     return value
+       return value
      }
    }
  }
-
 </script>

@@ -17,6 +17,12 @@ const FormComponent = {
     })
   },
   methods: {
+    hasError () {
+      return this.internalForm.errors.has(this.name)
+    },
+    error () {
+      return this.internalForm.errors.get(this.name)
+    },
     updateFormField (value, field) {
       field = field || this.name
       this.$store.dispatch('acacha-forms/updateFormFieldAction', {
