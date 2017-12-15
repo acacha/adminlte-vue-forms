@@ -6,7 +6,7 @@
                 <label key="regular" :for="id">{{placeholder}}</label>
             </slot>
         </transition>
-        <input type="text"
+        <input type="password"
                class="form-control"
                :id="id"
                :placeholder="placeholder"
@@ -23,8 +23,14 @@
  import FormComponent from './mixins/FormComponent'
 
  export default {
-   name: 'AdminLTEInputText',
+   name: 'AdminLTEInputPassword',
    mixins: [ FormComponent ],
+   props: {
+     name: {
+       type: String,
+       default: 'password'
+     }
+   },
    methods: {
      update (value) {
        this.updateFormField(this.trim(value))

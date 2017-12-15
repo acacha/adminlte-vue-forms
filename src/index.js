@@ -1,5 +1,7 @@
 import Components from './components/index'
 import AdminlteInputTextComponent from './components/AdminlteInputTextComponent.vue'
+import AdminlteInputEmailComponent from './components/AdminlteInputEmailComponent.vue'
+import AdminlteInputPasswordComponent from './components/AdminlteInputPasswordComponent.vue'
 import AdminlteInputDateMaskComponent from './components/AdminlteInputDateMaskComponent.vue'
 import AdminlteInputLocationComponent from './components/AdminlteInputLocationComponent.vue'
 import FormComponent from './components/mixins/FormComponent'
@@ -20,6 +22,8 @@ export default AdminlteVueForms
 
 export {
   AdminlteInputTextComponent,
+  AdminlteInputEmailComponent,
+  AdminlteInputPasswordComponent,
   AdminlteInputDateMaskComponent,
   AdminlteInputLocationComponent,
   FormComponent
