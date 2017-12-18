@@ -67,7 +67,7 @@
         locationId && this.clearError()
       },
       clearError () {
-        this.$store.dispatch('acacha-forms/clearErrorAction', this.name)
+        this.$store.dispatch(this.action('clearErrorAction'), this.name)
       },
       customLabel ({ name }) {
         return `${name}`

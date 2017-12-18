@@ -1,5 +1,4 @@
 import changeCase from 'change-case'
-import {mapGetters} from 'vuex'
 
 let getTitleCaseName = function () {
   return changeCase.titleCase(this.name)
@@ -8,13 +7,15 @@ let getTitleCaseName = function () {
 const FormComponent = {
   data: function () {
     return {
-      internalForm: null
+      internalForm: null,
+      internalFormModule: null
     }
   },
   computed: {
-    ...mapGetters({
-      store_form: 'acacha-forms/form'
-    })
+    default_store_form () {
+      if (this.$store.getters['acacha-forms/form']) return this.$store.getters['acacha-forms/form']
+      return null
+    }
   },
   methods: {
     hasError () {
@@ -23,9 +24,17 @@ const FormComponent = {
     error () {
       return this.internalForm.errors.get(this.name)
     },
+    action (name) {
+      if (this.internalFormModule) return this.sanitize(this.internalFormModule) + name
+      return 'acacha-forms/' + name
+    },
+    sanitize (name) {
+      if (name.endsWith('/')) return name
+      return name + '/'
+    },
     updateFormField (value, field) {
       field = field || this.name
-      this.$store.dispatch('acacha-forms/updateFormFieldAction', {
+      this.$store.dispatch(this.action('updateFormFieldAction'), {
         field: field,
         value: value
       })
@@ -34,14 +43,19 @@ const FormComponent = {
       if (this.formName) {
         return this.getFormFromStoreByName(this.formName)
       } else {
-        if (this.store_form) return this.store_form
-        throw new Error("Form 'form' not found in Vuex store under namespace acacha-forms")
+        if (this.default_store_form) return this.default_store_form
+        throw new Error("Default Acacha Form 'acacha-forms/form' not found in Vuex store!")
       }
     },
+    cleanFormName (formName) {
+      if (formName.endsWith('/')) return formName.substring(0, formName.length - 1)
+      return formName
+    },
     getFormFromStoreByName (formName) {
-      if (!this.$store.state['acacha-forms']) throw new Error('No Vuex state found for acacha-forms : this.$store.state.acacha-forms')
-      if (this.$store.state['acacha-forms'][formName]) return this.$store.state['acacha-forms'][formName]
-      throw new Error(`Form ${formName} not found in Vuex store under namespace acacha-forms`)
+      const name = this.cleanFormName(formName)
+      if (!this.$store.state[name]) throw new Error('No Vuex state found: this.$store.state.' + name)
+      if (this.$store.state[name].form) return this.$store.state[name].form
+      throw new Error(`Form ${name}.fom not found in Vuex store`)
     }
   },
   props: {
@@ -70,6 +84,7 @@ const FormComponent = {
   },
   created () {
     this.internalForm = this.form || this.getFormFromStore()
+    if (!this.form) this.internalFormModule = this.formName || 'acacha-forms'
   }
 }
 
